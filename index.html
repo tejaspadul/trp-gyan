@@ -1,124 +1,728 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tejas Notes</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>My Private Coding Notes</title>
     <style>
+      :root {
+        --bg: #0f1724;
+        --card: #0b1220;
+        --muted: #9aa4b2;
+        --accent: #60a5fa;
+      }
+      * {
+        box-sizing: border-box;
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+      }
+      html,
       body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        height: 100%;
         margin: 0;
-        background-color: #f4f4f4;
+        background: linear-gradient(180deg, #071028 0%, #071526 100%);
+        color: #e6eef6;
       }
       header {
-        background-color: #007bff;
-        color: white;
-        padding: 20px 0;
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      }
+      .brand {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .logo {
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #2563eb, #06b6d4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
       }
       nav {
-        background: #0056b3;
-        padding: 10px;
         display: flex;
-        justify-content: center;
-        gap: 20px;
+        gap: 10px;
       }
-      nav a {
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-      }
-      nav a:hover {
-        text-decoration: underline;
-      }
-      main {
-        padding: 30px;
-      }
-      section {
-        margin-bottom: 30px;
-      }
-      form {
-        margin-top: 20px;
-      }
-      input[type="file"] {
-        padding: 10px;
-      }
-      button {
-        padding: 10px 20px;
-        background-color: #007bff;
-        border: none;
-        color: white;
+      nav button {
+        background: transparent;
+        border: 0;
+        padding: 8px 12px;
+        border-radius: 8px;
+        color: var(--muted);
         cursor: pointer;
       }
+      nav button.active {
+        background: rgba(255, 255, 255, 0.04);
+        color: #e6eef6;
+      }
+      main {
+        padding: 22px;
+        max-width: 1100px;
+        margin: 24px auto;
+      }
+      .card {
+        background: var(--card);
+        border-radius: 12px;
+        padding: 18px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+        margin-top: 16px;
+      }
+      .note-card {
+        padding: 12px;
+        border-radius: 10px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          transparent
+        );
+        min-height: 120px;
+      }
+      .note-card h4 {
+        margin: 0 0 8px 0;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .controls {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      input,
+      textarea,
+      button {
+        font-family: inherit;
+      }
+      .form-row {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .grow {
+        flex: 1;
+      }
+      textarea {
+        min-height: 120px;
+        padding: 8px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        background: transparent;
+        color: inherit;
+      }
+      .btn {
+        background: var(--accent);
+        border: 0;
+        padding: 8px 12px;
+        border-radius: 8px;
+        color: #022;
+        cursor: pointer;
+      }
+      .small {
+        padding: 6px 8px;
+        font-size: 14px;
+      }
+      .thumb {
+        height: 64px;
+        width: 64px;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+      }
+      .top-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .login-box {
+        max-width: 420px;
+        margin: 40px auto;
+        padding: 20px;
+      }
+      .hidden {
+        display: none;
+      }
       footer {
-        background-color: #222;
-        color: white;
-        text-align: center;
-        padding: 20px 0;
-        margin-top: 40px;
+        max-width: 1100px;
+        margin: 22px auto;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .settings p {
+        margin: 6px 0;
+      }
+      .danger {
+        background: #ff6b6b;
+        color: #1b0b0b;
+      }
+      .content-editable {
+        min-height: 120px;
+        padding: 8px;
+        border-radius: 8px;
+        border: 1px dashed rgba(255, 255, 255, 0.04);
+        background: transparent;
+      }
+      .note-meta {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 8px;
       }
     </style>
   </head>
   <body>
     <header>
-      <h1>📚 Tejas Notes</h1>
-      <p>Access your notes anytime, anywhere</p>
+      <div class="brand">
+        <div class="logo">N</div>
+        <div>
+          <div style="font-weight: 700">My Private Coding Notes</div>
+          <div class="muted" style="font-size: 13px">
+            Store & manage your coding notes locally
+          </div>
+        </div>
+      </div>
+      <nav id="mainNav" aria-label="Main navigation">
+        <button data-tab="home" class="active">Home</button>
+        <button data-tab="about">About</button>
+        <button data-tab="notes">Notes</button>
+        <button data-tab="settings">Settings</button>
+      </nav>
     </header>
 
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#upload">Upload Notes</a>
-      <a href="#resources">Links</a>
-    </nav>
-
     <main>
-      <section id="home">
-        <h2>Welcome to Tejas Notes</h2>
-        <p>
-          This platform helps you upload and access your notes globally on any
-          device. Designed for students, professionals, and learners.
+      <!-- HOME -->
+      <section id="home" class="card">
+        <h2>Welcome — Private Notes</h2>
+        <p class="muted">
+          This lightweight app stores notes locally in your browser. You can add
+          text, paste code, and upload images into each note. Notes stay on your
+          device (in localStorage) until you export or delete them.
         </p>
+        <div style="margin-top: 10px" class="top-actions">
+          <button class="btn" id="goto-notes">Go to Notes</button>
+          <button class="small" id="exportAll">Export all notes (JSON)</button>
+          <button class="small" id="importBtn">Import notes</button>
+          <input
+            id="importFile"
+            type="file"
+            accept="application/json"
+            style="display: none"
+          />
+        </div>
       </section>
 
-      <section id="about">
+      <!-- ABOUT -->
+      <section id="about" class="card hidden">
         <h2>About</h2>
-        <p>
-          Tejas Notes is a personal project designed to simplify note sharing
-          and access. You can upload your study materials here and access them
-          anytime, anywhere. No registration needed.
+        <p class="muted">
+          Use this site to keep your coding notes organized. It's a single-file
+          app (HTML+JS). Images are encoded and saved in your browser as data
+          URLs. No server required.
         </p>
-      </section>
-
-      <section id="upload">
-        <h2>Upload Your Notes</h2>
-        <form action="/upload" method="POST" enctype="multipart/form-data">
-          <input type="file" name="note" required />
-          <button type="submit">Upload</button>
-        </form>
-        <ul id="notes-list">
-          <!-- Notes list will appear here (can be dynamic later) -->
-        </ul>
-      </section>
-
-      <section id="resources">
-        <h2>Useful Links</h2>
+        <p>Suggested uses:</p>
         <ul>
-          <li>
-            <a href="https://drive.google.com" target="_blank">Google Drive</a>
-          </li>
-          <li><a href="https://notion.so" target="_blank">Notion</a></li>
-          <li>
-            <a href="https://overleaf.com" target="_blank"
-              >Overleaf (for LaTeX)</a
-            >
-          </li>
+          <li>Save snippets, explanations, and short tutorials.</li>
+          <li>Upload screenshots or diagrams to attach to notes.</li>
+          <li>Export notes to back up or move between devices.</li>
         </ul>
       </section>
+
+      <!-- NOTES -->
+      <section id="notes" class="card hidden">
+        <div style="display: flex; gap: 16px; align-items: flex-start">
+          <div style="flex: 1; min-width: 320px">
+            <h3>Create / Edit Note</h3>
+            <div class="form-row">
+              <input
+                id="noteTitle"
+                class="grow"
+                placeholder="Title (e.g. Python list methods)"
+              />
+              <input id="imageInput" type="file" accept="image/*" multiple />
+            </div>
+            <div
+              contenteditable="true"
+              id="noteContent"
+              class="content-editable"
+              placeholder="Write your note here. You can paste code and format it minimally."
+            >
+              Type your content here...
+            </div>
+            <div class="note-meta">
+              <div id="imagePreview"></div>
+              <div style="margin-left: auto" class="controls">
+                <button class="btn" id="saveNote">Save Note</button>
+                <button class="small" id="clearForm">Clear</button>
+              </div>
+            </div>
+          </div>
+          <div style="width: 360px">
+            <h3>Search & Filters</h3>
+            <input
+              id="search"
+              placeholder="Search title or content"
+              style="
+                width: 100%;
+                padding: 8px;
+                border-radius: 8px;
+                border: 1px solid rgba(255, 255, 255, 0.04);
+                background: transparent;
+                color: inherit;
+                margin-bottom: 8px;
+              "
+            />
+            <div id="notesList" class="grid"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section id="settings" class="card hidden settings">
+        <h3>Settings & Security</h3>
+        <p class="muted">
+          This app is frontend-only. The "protection" is a simple password
+          stored in localStorage — it's convenient but not cryptographically
+          secure. For real privacy, host this behind a server with proper
+          authentication.
+        </p>
+        <p>
+          <label
+            >Change access password:
+            <input id="newPass" placeholder="new password"
+          /></label>
+          <button class="small" id="setPass">Set password</button>
+        </p>
+        <p>
+          <button id="clearStorage" class="small danger">
+            Delete all notes (localStorage)
+          </button>
+        </p>
+        <p><button id="logout" class="small">Logout</button></p>
+      </section>
+
+      <!-- LOGIN modal/box -->
+      <div
+        id="login"
+        class="card login-box"
+        style="max-width: 480px; margin-top: 30px"
+      >
+        <h3 id="loginTitle">Sign in</h3>
+        <p class="muted">
+          This site is private on this browser. Set a password in Settings after
+          logging in for the first time.
+        </p>
+        <div style="display: flex; gap: 8px; margin-top: 8px">
+          <input
+            id="passwordInput"
+            type="password"
+            placeholder="Enter password"
+            style="
+              flex: 1;
+              padding: 8px;
+              border-radius: 8px;
+              border: 1px solid rgba(255, 255, 255, 0.04);
+              background: transparent;
+              color: inherit;
+            "
+          />
+          <button class="btn" id="loginBtn">Login</button>
+        </div>
+        <p class="muted" style="margin-top: 8px; font-size: 13px">
+          If you haven't set a password yet, click "Set default" to create one
+          now (default: <code>password</code>). This is only stored locally.
+        </p>
+        <div style="margin-top: 10px" class="controls">
+          <button class="small" id="setDefault">Set default password</button>
+          <button class="small" id="skipLogin">
+            Continue without password (not recommended)
+          </button>
+        </div>
+      </div>
     </main>
 
     <footer>
-      <p>Created by Tejas &copy; 2025. All rights reserved.</p>
+      <div>
+        Tip: export your notes periodically to back them up. To publish this
+        site online you can deploy the same HTML file to GitHub Pages or
+        Netlify.
+      </div>
     </footer>
+
+    <script>
+      // Simple single-file notes app with localStorage storage
+      const STORAGE_KEY = "notesApp_notes_v1";
+      const PASS_KEY = "notesApp_pass_v1";
+
+      // elements
+      const tabs = document.querySelectorAll("nav button");
+      const sections = {
+        home: document.getElementById("home"),
+        about: document.getElementById("about"),
+        notes: document.getElementById("notes"),
+        settings: document.getElementById("settings"),
+      };
+      const loginBox = document.getElementById("login");
+      const loginBtn = document.getElementById("loginBtn");
+      const passwordInput = document.getElementById("passwordInput");
+      const setDefault = document.getElementById("setDefault");
+      const skipLogin = document.getElementById("skipLogin");
+      const gotoNotes = document.getElementById("goto-notes");
+
+      const noteTitle = document.getElementById("noteTitle");
+      const noteContent = document.getElementById("noteContent");
+      const imageInput = document.getElementById("imageInput");
+      const imagePreview = document.getElementById("imagePreview");
+      const saveNote = document.getElementById("saveNote");
+      const clearForm = document.getElementById("clearForm");
+      const notesList = document.getElementById("notesList");
+      const search = document.getElementById("search");
+      const exportAll = document.getElementById("exportAll");
+      const importBtn = document.getElementById("importBtn");
+      const importFile = document.getElementById("importFile");
+      const setPass = document.getElementById("setPass");
+      const newPass = document.getElementById("newPass");
+      const clearStorage = document.getElementById("clearStorage");
+      const logoutBtn = document.getElementById("logout");
+
+      let notes = [];
+      let currentEditId = null;
+
+      // helpers
+      function saveNotesToStorage() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+      }
+      function loadNotesFromStorage() {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        notes = raw ? JSON.parse(raw) : [];
+      }
+      function getPass() {
+        return localStorage.getItem(PASS_KEY);
+      }
+      function setPassToStorage(p) {
+        localStorage.setItem(PASS_KEY, p);
+      }
+
+      function showTab(name) {
+        tabs.forEach((b) =>
+          b.classList.toggle("active", b.dataset.tab === name)
+        );
+        Object.keys(sections).forEach((k) =>
+          sections[k].classList.toggle("hidden", k !== name)
+        );
+      }
+
+      tabs.forEach((b) =>
+        b.addEventListener("click", () => {
+          showTab(b.dataset.tab);
+        })
+      );
+      gotoNotes.addEventListener("click", () => {
+        showTab("notes");
+      });
+
+      // image input preview and conversion
+      imageInput.addEventListener("change", async (e) => {
+        const files = Array.from(e.target.files);
+        imagePreview.innerHTML = "";
+        for (const f of files) {
+          const data = await fileToDataURL(f);
+          const img = document.createElement("img");
+          img.src = data;
+          img.className = "thumb";
+          imagePreview.appendChild(img);
+        }
+      });
+      function fileToDataURL(file) {
+        return new Promise((res, rej) => {
+          const r = new FileReader();
+          r.onload = () => res(r.result);
+          r.onerror = rej;
+          r.readAsDataURL(file);
+        });
+      }
+
+      // render notes
+      function renderNotes(filter = "") {
+        notesList.innerHTML = "";
+        const f = filter.trim().toLowerCase();
+        const items = notes.filter(
+          (n) =>
+            !f ||
+            n.title.toLowerCase().includes(f) ||
+            n.content.toLowerCase().includes(f)
+        );
+        if (items.length === 0) {
+          notesList.innerHTML = '<div class="muted">No notes yet.</div>';
+          return;
+        }
+        items.sort((a, b) => b.created - a.created);
+        items.forEach((n) => {
+          const el = document.createElement("div");
+          el.className = "note-card card";
+          const imagesHtml = (n.images || [])
+            .slice(0, 3)
+            .map((src) => `<img src="${src}" class="thumb" />`)
+            .join(" ");
+          el.innerHTML = `
+          <h4>${escapeHtml(n.title || "(untitled)")}</h4>
+          <div class="muted" style="font-size:13px">${new Date(
+            n.created
+          ).toLocaleString()}</div>
+          <div style="margin-top:8px">${n.content}</div>
+          <div style="margin-top:10px">${imagesHtml}</div>
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button class="small" data-id="${
+              n.id
+            }" data-action="edit">Edit</button>
+            <button class="small" data-id="${
+              n.id
+            }" data-action="delete">Delete</button>
+            <button class="small" data-id="${
+              n.id
+            }" data-action="export">Export</button>
+          </div>
+        `;
+          notesList.appendChild(el);
+        });
+      }
+
+      function escapeHtml(s) {
+        return (s || "").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+      }
+
+      // save/create note
+      saveNote.addEventListener("click", async () => {
+        const title = noteTitle.value.trim();
+        const content = noteContent.innerHTML.trim();
+        // gather images from input
+        const images = [];
+        const files = Array.from(imageInput.files || []);
+        for (const f of files) {
+          images.push(await fileToDataURL(f));
+        }
+        if (currentEditId) {
+          const idx = notes.findIndex((x) => x.id === currentEditId);
+          if (idx > -1) {
+            notes[idx].title = title;
+            notes[idx].content = content;
+            notes[idx].images = notes[idx].images.concat(images);
+            notes[idx].updated = Date.now();
+          }
+        } else {
+          notes.push({
+            id: cryptoRandomId(),
+            title,
+            content,
+            images,
+            created: Date.now(),
+            updated: Date.now(),
+          });
+        }
+        saveNotesToStorage();
+        clearNoteForm();
+        renderNotes(search.value);
+        showAlert("Saved");
+      });
+
+      function cryptoRandomId() {
+        return Math.random().toString(36).slice(2, 10);
+      } // simple id
+
+      function clearNoteForm() {
+        noteTitle.value = "";
+        noteContent.innerHTML = "Type your content here...";
+        imageInput.value = "";
+        imagePreview.innerHTML = "";
+        currentEditId = null;
+      }
+      clearForm.addEventListener("click", clearNoteForm);
+
+      // note actions (edit/delete/export)
+      notesList.addEventListener("click", (e) => {
+        const btn = e.target.closest("button");
+        if (!btn) return;
+        const id = btn.dataset.id;
+        const action = btn.dataset.action;
+        if (action === "edit") {
+          const n = notes.find((x) => x.id === id);
+          if (n) {
+            currentEditId = id;
+            noteTitle.value = n.title;
+            noteContent.innerHTML = n.content;
+            imagePreview.innerHTML = (n.images || [])
+              .map((s) => `<img src="${s}" class="thumb">`)
+              .join(" ");
+            showTab("notes");
+            window.scrollTo(0, 0);
+          }
+        }
+        if (action === "delete") {
+          if (confirm("Delete note permanently?")) {
+            notes = notes.filter((x) => x.id !== id);
+            saveNotesToStorage();
+            renderNotes(search.value);
+            showAlert("Deleted");
+          }
+        }
+        if (action === "export") {
+          const n = notes.find((x) => x.id === id);
+          if (n) {
+            downloadData(
+              JSON.stringify(n, null, 2),
+              `note-${n.id}.json`,
+              "application/json"
+            );
+          }
+        }
+      });
+
+      // search
+      search.addEventListener("input", () => renderNotes(search.value));
+
+      // export/import
+      exportAll.addEventListener("click", () => {
+        downloadData(
+          JSON.stringify(notes, null, 2),
+          "notes-backup.json",
+          "application/json"
+        );
+      });
+      function downloadData(text, filename, mime) {
+        const a = document.createElement("a");
+        const blob = new Blob([text], { type: mime });
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }
+
+      importBtn.addEventListener("click", () => importFile.click());
+      importFile.addEventListener("change", async (e) => {
+        const f = e.target.files[0];
+        if (!f) return;
+        const text = await f.text();
+        try {
+          const imported = JSON.parse(text);
+          if (Array.isArray(imported)) {
+            notes = notes.concat(imported);
+            saveNotesToStorage();
+            renderNotes();
+            showAlert("Imported notes");
+          } else {
+            // if single note
+            notes.push(imported);
+            saveNotesToStorage();
+            renderNotes();
+            showAlert("Imported 1 note");
+          }
+        } catch (err) {
+          alert("Invalid JSON file");
+        }
+      });
+
+      // settings
+      setPass.addEventListener("click", () => {
+        const p = newPass.value.trim();
+        if (!p) {
+          alert("Enter a non-empty password");
+          return;
+        }
+        setPassToStorage(p);
+        newPass.value = "";
+        showAlert("Password updated");
+      });
+      clearStorage.addEventListener("click", () => {
+        if (confirm("Delete ALL notes permanently?")) {
+          notes = [];
+          saveNotesToStorage();
+          renderNotes();
+          showAlert("All notes deleted");
+        }
+      });
+      logoutBtn.addEventListener("click", () => {
+        localStorage.removeItem(PASS_KEY);
+        location.reload();
+      });
+
+      // login flow
+      loginBtn.addEventListener("click", () => {
+        const stored = getPass();
+        const entered = passwordInput.value;
+        if (!stored) {
+          alert(
+            'No password set yet. Set a password in Settings or use "Set default".'
+          );
+          return;
+        }
+        if (entered === stored) {
+          loginBox.classList.add("hidden");
+          document.querySelector("main").style.filter = "none";
+          initApp();
+        } else {
+          alert("Incorrect password");
+        }
+      });
+      setDefault.addEventListener("click", () => {
+        setPassToStorage("password");
+        alert('Default password set to "password" (change it in Settings)');
+      });
+      skipLogin.addEventListener("click", () => {
+        if (
+          confirm(
+            "Continue without password? Notes will still be stored locally. This is less secure."
+          )
+        ) {
+          loginBox.classList.add("hidden");
+          initApp();
+        }
+      });
+
+      // small alerts
+      function showAlert(msg) {
+        const el = document.createElement("div");
+        el.textContent = msg;
+        el.style.position = "fixed";
+        el.style.right = "18px";
+        el.style.bottom = "18px";
+        el.style.padding = "10px 14px";
+        el.style.background = "rgba(0,0,0,0.6)";
+        el.style.borderRadius = "8px";
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 2000);
+      }
+
+      // init
+      function initApp() {
+        loadNotesFromStorage();
+        renderNotes();
+      }
+
+      // quick load: check if password exists; if no pass set, show login but allow set default
+      (function boot() {
+        const stored = getPass();
+        if (!stored) {
+          // no password yet -> show login box but still allow using app via skip
+          loginBox.classList.remove("hidden");
+          document.querySelector("main").style.filter = "blur(0px)";
+        } else {
+          // ask for password
+          loginBox.classList.remove("hidden");
+        }
+      })();
+
+      // utility: prevent accidental HTML injection for titles (content stored as innerHTML for notes content intentionally)
+    </script>
   </body>
 </html>
