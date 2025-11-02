@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tejas Notes</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        background-color: #f4f4f4;
+      }
+      header {
+        background-color: #007bff;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+      }
+      nav {
+        background: #0056b3;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+      nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      nav a:hover {
+        text-decoration: underline;
+      }
+      main {
+        padding: 30px;
+      }
+      section {
+        margin-bottom: 30px;
+      }
+      form {
+        margin-top: 20px;
+      }
+      input[type="file"] {
+        padding: 10px;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        border: none;
+        color: white;
+        cursor: pointer;
+      }
+      footer {
+        background-color: #222;
+        color: white;
+        text-align: center;
+        padding: 20px 0;
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>📚 Tejas Notes</h1>
+      <p>Access your notes anytime, anywhere</p>
+    </header>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#upload">Upload Notes</a>
+      <a href="#resources">Links</a>
+    </nav>
+
+    <main>
+      <section id="home">
+        <h2>Welcome to Tejas Notes</h2>
+        <p>
+          This platform helps you upload and access your notes globally on any
+          device. Designed for students, professionals, and learners.
+        </p>
+      </section>
+
+      <section id="about">
+        <h2>About</h2>
+        <p>
+          Tejas Notes is a personal project designed to simplify note sharing
+          and access. You can upload your study materials here and access them
+          anytime, anywhere. No registration needed.
+        </p>
+      </section>
+
+      <section id="upload">
+        <h2>Upload Your Notes</h2>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+          <input type="file" name="note" required />
+          <button type="submit">Upload</button>
+        </form>
+        <ul id="notes-list">
+          <!-- Notes list will appear here (can be dynamic later) -->
+        </ul>
+      </section>
+
+      <section id="resources">
+        <h2>Useful Links</h2>
+        <ul>
+          <li>
+            <a href="https://drive.google.com" target="_blank">Google Drive</a>
+          </li>
+          <li><a href="https://notion.so" target="_blank">Notion</a></li>
+          <li>
+            <a href="https://overleaf.com" target="_blank"
+              >Overleaf (for LaTeX)</a
+            >
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>Created by Tejas &copy; 2025. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
